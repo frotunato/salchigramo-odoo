@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <template id="publication_listing">
+          <ul>
+            <li t-foreach="objects" t-as="object">
+              <a t-attf-href="#{ root }/objects/#{ object.id }">
+                <t t-esc="object.display_name"/>
+              </a>
+            </li>
+          </ul>
+        </template>
+
+        <template id="twitter_listing">
+          <ul>
+            <li t-foreach="objects" t-as="object">
+              <a t-attf-href="#{ root }/objects/#{ object.id }">
+                <t t-esc="object.display_name"/>
+              </a>
+            </li>
+          </ul>
+        </template>
+
+        <template id="publication_object">
+          <h1><t t-esc="object.display_name"/></h1>
+          <dl>
+            <field name="name">Name</field>
+            <field name="description">Description</field>
+            <field name="posted">Post on creation</field>
+            <field name="publish_on_twitter">Publish on Twitter</field>
+            <field name="publish_on_facebook">Publish on Facebook</field>
+            <field name="publish_on_instagram">Publish on Instagram</field>
+            <field name="image" widget="image" class="oe_avatar">Image</field>
+
+            <!--
+            <a class="thumbnail fancybox" rel="ligthbox" t-att-href="'data:image/png;base64,'+widget.image">
+                <img class="align-self-center rounded-circle mr-3" alt=""
+                t-att-src="'data:image/png;base64,'+widget.image"/>
+            </a>
+            
+            <t t-foreach="object._fields" t-as="field">
+              <dt><t t-esc="field"/></dt>
+              <dd><t t-esc="object[field]"/></dd>
+            </t>
+            -->
+            <!--<t>
+              <dt>Value</dt>
+              <dd><t t-esc="object['value']"</dd>
+            </t>-->
+          </dl>
+        </template>
+
+        <template id="twitter_object">
+          <h1><t t-esc="object.display_name"/></h1>
+          <dl>
+            <field name="name">Name</field>
+          </dl>
+        </template>
+
+    </data>
+</odoo>

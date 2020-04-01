@@ -1,0 +1,218 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+      <field name="name">Salchigramo settings</field>
+      <field name="inherit_id" ref ="base.res_config_settings_view_form"/>
+      <field name="model">res.config.settings</field>
+      <field name="arch" type="xml">
+        <xpath expr="//div[hasclass('settings')]" position="inside">
+           <div class="app_settings_block" data-string="Salchigramo" string="Salchigramo"
+                data-key="salchigramo">
+               <div class="row mt16 o_settings_container">
+                  <div class="col-lg-6 o_setting_box">
+                     <h2>Twitter settings</h2>
+                     
+                     <label for="twitter_consumer_key" class="o_light_label"/>
+                     <field password="True" name="twitter_consumer_key"/>
+                     
+                     <label for="twitter_consumer_secret" class="o_light_label"/>
+                     <field password="True" name="twitter_consumer_secret"/>
+                    
+                     <label for="twitter_access_token_key" class="o_light_label"/>
+                     <field password="True" name="twitter_access_token_key"/>
+                     
+                     <label for="twitter_access_token_secret" class="o_light_label"/>
+                     <field password="True" name="twitter_access_token_secret"/>
+                  </div>
+                  <div class="col-lg-6 o_setting_box">
+                     <h2>Facebook settings</h2>
+                     <label for="facebook_username" class="o_light_label"/>
+                     <field name="facebook_username"/>
+                     
+                     <label for="facebook_password" class="o_light_label"/>
+                     <field password="True" name="facebook_password"/>
+                     
+                     <label for="facebook_page_id" class="o_light_label"/>
+                     <field name="facebook_page_id"/>
+
+                     <label for="facebook_external_url" class="o_light_label"/>
+                     <field name="facebook_external_url"/>
+                  </div>
+                  <div class="col-lg-6 o_setting_box">
+                     <h2>Instagram settings</h2>
+                     <label for="instagram_username" class="o_light_label"/>
+                     <field name="instagram_username"/>
+                     
+                     <label for="instagram_password" class="o_light_label"/>
+                     <field password="True" name="instagram_password"/>
+                     
+                     <label for="instagram_external_url" class="o_light_label"/>
+                     <field name="instagram_external_url"/>
+                  </div>
+                </div>
+           </div>
+              </xpath>
+      </field>
+    </record>
+
+   <record id="salchigramo_config_settings_action" model="ir.actions.act_window">
+    <field name="name">Settings!</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.config.settings</field>
+    <field name="view_mode">form</field>
+    <field name="target">inline</field>
+    <field name="context">{'module' : 'salchigramo'}</field>
+    <field name="view_id" ref="res_config_settings_view_form"></field>
+  </record>
+    
+    <!--
+      <record model="ir.actions.twitter_action_windowow" id="salchigramo.twitter_action_window">
+        <field name="name">Twitter</field>
+        <field name="res_model">salchigramo.twitter</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="twitter_config"></field>
+      </record>
+
+    -->
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="salchigramo.new_publication_form">
+      <field name="name">salchigramo form</field>
+      <field name="model">salchigramo.publication</field>
+      <field name="arch" type="xml">
+        <form string="New publication">
+          <sheet>
+            <div>
+              <field name="active"/>
+            </div>
+
+            <group>
+              <group string="Contenido">
+                <field required="1" name="name"/>
+                <newline/>
+                <field required="1" name="product_template_id"/>
+              </group>
+              <div style="padding-left:15%%">
+                <separator string="Imagen"/>
+                <field required="1" attrs="{'readonly': [('active', '=', True)]}" class="oe_image_custom" style="max-width: 255px; max-height: 100px;" widget="image" name="image" options='{"preview_image":"image"}'/>
+              </div>
+              <div>
+                <separator string="Descripción"/>
+                <field required="1" name="description" attrs="{'readonly': [('active', '=', True)]}"/>
+              </div>
+            </group>
+            <newline/>
+            <group string="Plataformas">
+              <group>
+                <field name="publish_on_twitter"/>
+                <field widget ="url" readonly="1" name="twitter_post_url" attrs="{'invisible': ['|',('active', '=', False), ('publish_on_twitter', '=', False)]}" />
+              </group>
+              <newline/>
+              <group>
+                <field name="publish_on_facebook"/>
+                <field widget ="url" readonly="1" name="facebook_post_url" attrs="{'invisible': ['|',('active', '=', False), ('publish_on_facebook', '=', False)]}" />
+              </group>
+              <newline/>
+              <group>
+                <field name="publish_on_instagram"/>
+                <field widget ="url" readonly="1" name="instagram_post_url" attrs="{'invisible': ['|',('active', '=', False), ('publish_on_instagram', '=', False)]}" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="salchigramo.list">
+      <field name="name">salchigramo list</field>
+      <field name="model">salchigramo.publication</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="product_template_id"/>
+          <field name="publish_on_twitter"/>
+          <field name="publish_on_facebook"/>
+          <field name="publish_on_instagram"/>
+        </tree>
+      </field>
+    </record>
+  <!--
+    <record model="ir.actions.act_window.view" id="new_publication_form_view">
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="new_publication_form"></field>
+    </record>
+  -->
+    <record model="ir.actions.act_window" id="salchigramo.publication_action_window">
+      <field name="name">Lista de publicaciones</field>
+      <field name="res_model">salchigramo.publication</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="list"></field>
+    </record>
+    
+
+
+<!--
+    <record model="ir.ui.view" id="salchigramo.twitter_config">
+      <field name="name">twitter list</field>
+      <field name="model">salchigramo.twitter</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+
+
+
+
+
+
+    <!-- server action to the one above -->
+
+    <record model="ir.actions.server" id="salchigramo.action_server">
+      <field name="name">salchigramo server</field>
+      <field name="model_id" ref="model_salchigramo_publication"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="Salchigramo" id="salchigramo.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Publicaciones" id="salchigramo.menu_1" parent="salchigramo.menu_root" action="salchigramo.publication_action_window"/>
+    <menuitem name="Twitter" id="salchigramo.menu_2" parent="salchigramo.menu_root"/>
+    <menuitem name="Facebook" id="salchigramo.menu_3" parent="salchigramo.menu_root"/>
+    <menuitem name="Instagram" id="salchigramo.menu_4" parent="salchigramo.menu_root"/>
+
+
+    <menuitem id="menu_salchigramo_settings" name="salchigramo"/>
+    <menuitem id="salchigramo.menu_salchigramo_settings"
+        name="Configuration"
+        parent="salchigramo.menu_2"
+        sequence="99"
+        action="salchigramo_config_settings_action"/>
+
+    <!-- actions 
+
+    <menuitem name="Overview" id="salchigramo.menu_1_list" parent="salchigramo.menu_1"
+              action="salchigramo.publication_action_window"/>
+    
+    <menuitem name="Configuración" id="salchigramo" parent="salchigramo.menu_2"
+              action="salchigramo.twitter_action_window"/>
+-->
+  </data>
+</odoo>
