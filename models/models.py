@@ -6,11 +6,6 @@ import requests, pip, logging, twitter, base64, json
 
 _logger = logging.getLogger(__name__)
 
-#twitterApi = twitter.Api(consumer_key='lDWLTwXpDw8Xt2S2p1HfMDpwh',
-#	consumer_secret='0tlsV5QeSkvrLi5TUgs85RNKw9fFO2lFHESUc6GZ9zhqZtK169',
-#	access_token_key='527571561-tbMqNqgllJVuCnfTqgxB33ogbkLLi5JLP3VTxRIU',
-#	access_token_secret='rpu3TC0qZc7JA9kHjj0SZsptro22Q1RxNhzDLEO8mzAAu')
-
 class Error(Exception):
    pass
 
