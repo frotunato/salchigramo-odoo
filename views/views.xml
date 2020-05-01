@@ -85,7 +85,7 @@
         <form string="New publication">
           <sheet>
             <div>
-              <field name="active"/>
+              <field name="active" invisible="1"/>
             </div>
 
             <group>
@@ -194,7 +194,15 @@
     <!-- menu categories -->
 
     <menuitem name="Publicaciones" id="salchigramo.menu_1" parent="salchigramo.menu_root" action="salchigramo.publication_action_window"/>
-    <menuitem name="Twitter" id="salchigramo.menu_2" parent="salchigramo.menu_root"/>
+    <menuitem name="Configuración" id="salchigramo.menu_2" parent="salchigramo.menu_root" action="salchigramo_config_settings_action"/>
+    
+    <!--
+    <menuitem id="salchigramo.menu_salchigramo_settings"
+        name="Configuration"
+        parent="salchigramo.menu_2"
+        sequence="99"
+        />
+    
     <menuitem name="Facebook" id="salchigramo.menu_3" parent="salchigramo.menu_root"/>
     <menuitem name="Instagram" id="salchigramo.menu_4" parent="salchigramo.menu_root"/>
 
@@ -205,7 +213,7 @@
         parent="salchigramo.menu_2"
         sequence="99"
         action="salchigramo_config_settings_action"/>
-
+    -->
     <!-- actions 
 
     <menuitem name="Overview" id="salchigramo.menu_1_list" parent="salchigramo.menu_1"
