@@ -5,6 +5,6 @@ try:
 except ImportError:
 	import sys
 	import subprocess
-	subprocess.check_call(['pip3', 'install', 'requests', 'requests-oauthlib', 'python-twitter', 'python-facebook-api', '--upgrade'])
+	subprocess.check_call(['pip3', 'install', '--user', 'requests', 'requests-oauthlib', 'python-twitter', 'python-facebook-api', '--upgrade'])
 from . import controllers
 from . import models
